@@ -30,6 +30,15 @@ def hello_world():
 def name():
     return 'Laban'
 
+
+@app.route('/new_department', methods=['POST'])
+def new_department():
+    pass
+
+
+@app.route('/new_employee', methods=['POST'])
+def new_employee():
+    pass
 # run flask
 # if __name__ == '__main__':
 #     app.run()
