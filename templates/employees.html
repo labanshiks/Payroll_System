@@ -34,40 +34,53 @@
                 <form action="new_employee" method="POST">
                     <div class="form-group">
                         <label for="formGroupExampleInput">Employee ID</label>
-                        <input required type="text" class="form-control" id="formGroupExampleInput" placeholder=" ">
+                        <input name="id" required type="text" class="form-control" id="formGroupExampleInput"
+                               placeholder=" ">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Employee Name</label>
-                        <input required type="text" class="form-control" id="formGroupExampleInput" placeholder=" ">
+                        <input name="name" required type="text" class="form-control" id="formGroupExampleInput"
+                               placeholder=" ">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Employee Gender</label>
+                        <select name="gender" class="form-control">
+                            <option value="na">Not applicable</option>
+                            <option value="m">Male</option>
+                            <option value="f">Female</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Employee KRA PIN</label>
-                        <input required type="text" class="form-control" id="formGroupExampleInput" placeholder=" ">
+                        <input name="kra_pin" required type="text" class="form-control" id="formGroupExampleInput"
+                               placeholder=" ">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Employee email</label>
-                        <input required type="email" class="form-control" id="formGroupExampleInput"
+                        <input name="email" required type="email" class="form-control" id="formGroupExampleInput"
                                placeholder="enter email">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Employee national ID</label>
-                        <input required type="text" class="form-control" id="formGroupExampleInput"
+                        <input name="national_id" required type="text" class="form-control" id="formGroupExampleInput"
                                placeholder="1245678">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Employee basic salary</label>
-                        <input required type="number" class="form-control" id="formGroupExampleInput" placeholder=" ">
+                        <input name="basic_salary" required type="number" class="form-control"
+                               id="formGroupExampleInput" placeholder=" ">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Employee benefits</label>
-                        <input required type="number" class="form-control" id="formGroupExampleInput" placeholder=" ">
+                        <input name="benefits" required type="number" class="form-control" id="formGroupExampleInput"
+                               placeholder=" ">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Choose Department</label>
                         <select required class="form-control">
-                            <option>choose department</option>
-                            <option>IT</option>
-                            <option>HR</option>
+                            {% for each in idara %}
+                                <option value="{{ each.id }}">{{ each.name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="form-group">
