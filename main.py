@@ -6,9 +6,9 @@ from config import *
 # instantiating class flask
 app = Flask(__name__)
 # this is a config parameter that shows where our database location
-# app.config.from_object(Development)
+app.config.from_object(Development)
 # app.config.from_object(Testing)
-app.config.from_object(Production)
+# app.config.from_object(Production)
 
 db = SQLAlchemy(app)
 from models.Employees import EmployeesModel
@@ -45,7 +45,8 @@ def new_department():
 @app.route('/employees/<int:dept_id>')
 def employees(dept_id):
     departments = DepartmentModel.fetch_all()
-    return render_template('employees.html')
+    employees = EmployeesModel.fetch_by_departments(dept_id)
+    return render_template('employees.html', departments=departments, employees=employees)
 
 
 @app.route('/new_employee', methods=['POST'])
@@ -58,7 +59,16 @@ def new_employee():
     national_id = request.form['National ID']
     basic_salary = request.form['Basic Salary']
     benefits = request.form['Benefits']
-    depertment_id = request.form['Department ID']
+    department_id = request.form['Department ID']
+    if EmployeesModel.fetch_by_email(email):
+        # read more on bootstrap alerts with flash
+        flash("Email" + email + "already exist")
+        return redirect(url_for('home'))
+
+    employee = EmployeesModel(id=id, full_name=full_name, gender=gender, kra_pin=kra_pin, email=email,
+                              national_id=national_id, basic_salary=basic_salary, benefits=benefits,
+                              department_id=department_id)
+    employee.insert_to_db()
 
 # run flask
 # if __name__ == '__main__':
