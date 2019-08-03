@@ -1,0 +1,1 @@
+web:Procfile main:app

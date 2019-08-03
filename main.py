@@ -1,13 +1,14 @@
 # importing flask class
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from config import Development, Testing
+from config import Development, Testing, Production
 
 # instantiating class flask
 app = Flask(__name__)
 # this is a config parameter that shows where our database location
-app.config.from_object(Development)
-app.config.from_object(Testing)
+# app.config.from_object(Development)
+# app.config.from_object(Testing)
+app.config.from_object(Production)
 
 db = SQLAlchemy(app)
 from models.Employees import EmployeesModel
