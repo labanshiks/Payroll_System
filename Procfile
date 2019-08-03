@@ -1,1 +1,1 @@
-web: Procfile main:app
+web: gunicorn main:app
