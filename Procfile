@@ -1,1 +1,1 @@
-web:Procfile main:app
+web: Procfile main:app

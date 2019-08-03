@@ -1,9 +1,6 @@
-class Config:
+class Config(object):
+    DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    # SECRET_KEY = 'some secret key'
-    # SQLALCHEMY_DATABASE_URI = 'postgres://postgres:Labandroid99@127.0.0.1:5432/payroll_system'
-    # environment = 'Development'
-    DEBUG = True
 
 
 class Development(Config):
@@ -16,4 +13,3 @@ class Production(Config):
     environment = 'Production'
     DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-

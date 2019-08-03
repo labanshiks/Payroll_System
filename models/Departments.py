@@ -1,6 +1,6 @@
 # importing sqlalchemy object from main file
 
-from app import db
+from main import db
 from models.Employees import EmployeesModel
 
 
