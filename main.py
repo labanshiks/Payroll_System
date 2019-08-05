@@ -45,30 +45,32 @@ def new_department():
 @app.route('/employees/<int:dept_id>')
 def employees(dept_id):
     departments = DepartmentModel.fetch_all()
-    employees = EmployeesModel.fetch_by_departments(dept_id)
+    this_department = DepartmentModel.fetch_by_id(dept_id)
+    employees = this_department.employees
     return render_template('employees.html', departments=departments, employees=employees)
+
+
+@app.route('/payrolls/<int:emp_id>')
+def payrolls(emp_id):
+    return render_template('payrolls.html')
 
 
 @app.route('/new_employee', methods=['POST'])
 def new_employee():
-    id = request.form['id']
-    full_name = request.form['Full Name']
-    gender = request.form['Gender']
-    kra_pin = request.form['KRA PIN']
-    email = request.form['Email']
-    national_id = request.form['National ID']
-    basic_salary = request.form['Basic Salary']
-    benefits = request.form['Benefits']
-    department_id = request.form['Department ID']
-    if EmployeesModel.fetch_by_email(email):
-        # read more on bootstrap alerts with flash
-        flash("Email" + email + "already exist")
-        return redirect(url_for('home'))
+    full_name = request.form['name']
+    gender = request.form['gender']
+    kra_pin = request.form['kra_pin']
+    email = request.form['email']
+    national_id = request.form['national_id']
+    basic_salary = request.form['basic_salary']
+    benefits = request.form['benefits']
+    department_id = int(request.form['dept_id'])
 
-    employee = EmployeesModel(id=id, full_name=full_name, gender=gender, kra_pin=kra_pin, email=email,
-                              national_id=national_id, basic_salary=basic_salary, benefits=benefits,
+    employee = EmployeesModel(full_name=full_name, gender=gender, KRA_pin=kra_pin, email=email,
+                              national_ID=national_id, basic_salary=basic_salary, benefits=benefits,
                               department_id=department_id)
     employee.insert_to_db()
+    return redirect(url_for('home'))
 
 # run flask
 # if __name__ == '__main__':
