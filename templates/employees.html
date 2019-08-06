@@ -12,12 +12,11 @@
     <title>Laban's PayrollSystem</title>
 </head>
 <body>
-
+<div class="container-fluid">
 <!-- Button trigger modal for employee-->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newEmployee">
-    Add new Employee
+    Add Employee to {{ this_department.name }}
 </button>
-
 
 <!-- Modal for adding employees-->
 <div class="modal fade" id="newEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -31,7 +30,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="new_employee" method="POST">
+                <form action="/new_employee" method="POST">
                     <div class="form-group">
                         <label for="formGroupExampleInput">Employee ID</label>
                         <input name="id" required type="text" class="form-control" id="formGroupExampleInput"
@@ -63,7 +62,7 @@
                     <div class="form-group">
                         <label for="formGroupExampleInput">Employee national ID</label>
                         <input name="national_id" required type="text" class="form-control" id="formGroupExampleInput"
-                               placeholder="1245678">
+                               placeholder=" ">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Employee basic salary</label>
@@ -76,12 +75,7 @@
                                placeholder=" ">
                     </div>
                     <div class="form-group">
-                        <label for="formGroupExampleInput">Choose Department</label>
-                        <select name="dept_id" class="form-control">
-                            {% for each in idara %}
-                                <option value="{{ each.id }}">{{ each.name }}</option>
-                            {% endfor %}
-                        </select>
+                        <input name="dept_id" value="{{ this_department.id }}" class="form-control" type="hidden">
                     </div>
                     <div class="form-group">
                         <input type="submit" class="form-control btn btn-primary">
@@ -106,7 +100,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for each in employees %}
+    {% for each in this_department.employees %}
         <tr>
             <th scope="row">{{ each.id }}</th>
             <td>{{ each.full_name }}</td>
@@ -117,12 +111,13 @@
             <td>{{ each.basic_salary }}</td>
             <td>{{ each.benefits}}</td>
             <td>
-                <button><a href="/employees/{{ each.id }}">View Payrolls</a></button>
+                <button><a href="/payrolls/{{ each.id }}">View Payrolls</a></button>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+</div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

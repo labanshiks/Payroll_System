@@ -94,4 +94,3 @@ class Payroll:
 
     def net_salary(self):
         self.net_salary = self.taxable_income - (self.nhif_deductions + self.tax_off_relief)
-

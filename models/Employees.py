@@ -13,9 +13,11 @@ class EmployeesModel(db.Model):
     benefits = db.Column(db.Float)
     department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
 
-
-
     # create
     def insert_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def fetch_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()

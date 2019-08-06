@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from config import *
+from resources.payroll import Payroll
 
 # instantiating class flask
 app = Flask(__name__)
@@ -13,6 +14,7 @@ app.config.from_object(Development)
 db = SQLAlchemy(app)
 from models.Employees import EmployeesModel
 from models.Departments import DepartmentModel
+from models.Payrolls import PayrollsModel
 
 
 # TODO:READ MORE ABOUT FLASK-MIGRATE
@@ -44,15 +46,8 @@ def new_department():
 
 @app.route('/employees/<int:dept_id>')
 def employees(dept_id):
-    departments = DepartmentModel.fetch_all()
     this_department = DepartmentModel.fetch_by_id(dept_id)
-    employees = this_department.employees
-    return render_template('employees.html', departments=departments, employees=employees)
-
-
-@app.route('/payrolls/<int:emp_id>')
-def payrolls(emp_id):
-    return render_template('payrolls.html')
+    return render_template('employees.html', this_department=this_department)
 
 
 @app.route('/new_employee', methods=['POST'])
@@ -72,6 +67,38 @@ def new_employee():
     employee.insert_to_db()
     return redirect(url_for('home'))
 
+
+@app.route('/payrolls/<int:emp_id>')
+def payrolls(emp_id):
+    employee = EmployeesModel.fetch_by_id(emp_id)
+    return render_template('payrolls.html', employee=employee)
+
+
+@app.route('/generate_payroll/<int:id>', methods=['POST'])
+def generate_payrolls(id):
+    this_employee = EmployeesModel.fetch_by_id(id)
+    payroll = Payroll(this_employee.full_name, this_employee.basic_salary, this_employee.benefits)
+    payroll_month = request.form['month']
+    overtime = request.form['overtime']
+    advanced_pay = request.form['salary_advance']
+    loan_deductions = request.form['loan']
+    gross = payroll.gross_salary
+    nhif = payroll.nhif_deductions
+    nssf = payroll.nssf_deductions
+    taxable_amount = payroll.taxable_income
+    paye = payroll.payee
+    personal_relief = payroll.personal_relief
+    tax_off_relief = payroll.tax_off_relief
+    net_salary = payroll.net_salary
+
+    payroll = PayrollsModel(payroll_month=payroll_month, overtime=overtime, advanced_pay=advanced_pay,
+                            loan_deductions=loan_deductions,
+                            gross_salary=gross, nhif_deductions=nhif, nssf_deductions=nssf,
+                            taxable_income=taxable_amount,
+                            PAYE=paye, personal_relief=personal_relief, tax_off_relief=tax_off_relief,
+                            net_salary=net_salary)
+    payroll.insert_to_db()
+    return redirect(url_for('home'))
 # run flask
 # if __name__ == '__main__':
 #     app.run()
