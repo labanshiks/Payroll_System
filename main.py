@@ -47,7 +47,8 @@ def new_department():
 @app.route('/employees/<int:dept_id>')
 def employees(dept_id):
     this_department = DepartmentModel.fetch_by_id(dept_id)
-    return render_template('employees.html', this_department=this_department)
+    departments = DepartmentModel.fetch_all()
+    return render_template('employees.html', this_department=this_department, idara=departments)
 
 
 @app.route('/new_employee', methods=['POST'])
@@ -66,6 +67,38 @@ def new_employee():
                               department_id=department_id)
     employee.insert_to_db()
     return redirect(url_for('home'))
+
+
+@app.route('/edit_employee/<int:id>', methods=['POST'])
+def edit_employee(id):
+    full_name = request.form['name']
+    gender = request.form['gender']
+    kra_pin = request.form['kra_pin']
+    email = request.form['email']
+    national_id = request.form['national_id']
+    basic_salary = request.form['basic_salary']
+    benefits = request.form['benefits']
+    department_id = int(request.form['dept_id'])
+
+    if gender == "na":
+        gender = None
+    if department_id == "0":
+        department_id = None
+
+    EmployeesModel.update_by_id(id=id, full_name=full_name, gender=gender, KRA_pin=kra_pin, email=email,
+                                national_ID=national_id, basic_salary=basic_salary, benefits=benefits,
+                                department_id=department_id)
+    this_emp = EmployeesModel.fetch_by_id(id=id)
+    this_dept = this_emp.department
+    return redirect(url_for('employees', dept_id=this_dept.id))
+
+
+@app.route('/deleteEmployee/<int:id>')
+def delete_employee(id):
+    this_emp = EmployeesModel.fetch_by_id(id=id)
+    this_dept = this_emp.department
+    EmployeesModel.delete_by_id(id)
+    return redirect(url_for('employees', dept_id=this_dept.id))
 
 
 @app.route('/payrolls/<int:emp_id>')
