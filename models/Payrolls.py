@@ -16,8 +16,13 @@ class PayrollsModel(db.Model):
     personal_relief = db.Column(db.Float)
     tax_off_relief = db.Column(db.Float)
     net_salary = db.Column(db.Float)
+    take_home_pay = db.Column(db.Float)
     employee_id = db.Column(db.Integer, db.ForeignKey('employees.id'))
 
     def insert_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def fetch_by_employee(cls, emp_id):
+        return cls.query.filter_by(employee_id=emp_id)

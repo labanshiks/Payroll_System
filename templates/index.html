@@ -142,6 +142,20 @@
     {% endfor %}
     </tbody>
 </table>
+
+<div class="row">
+    <div class="col-sm-6">
+       <div class="card">
+<img class="card-img" height="500px" src="{{ graph | safe }}">
+</div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+<img class="card-img" height="500px" src="{{ bar_graph | safe }}">
+</div>
+    </div>
+</div>
+
 </div>
 
 

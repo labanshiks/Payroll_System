@@ -80,11 +80,11 @@ class Payroll:
         elif 12298 < self.taxable_income <= 23855:
             self.payee = 1229.80 + (0.15 * (self.taxable_income - 12298))
         elif 23855 < self.taxable_income <= 35472:
-            self.payee = 1229.80 + 1733.55 + (0.2 * self.taxable_income - 23855)
+            self.payee = 1229.80 + 1733.55 + (0.2 * (self.taxable_income - 23855))
         elif 35472 < self.taxable_income <= 47059:
-            self.payee = 1229.80 + 1733.55 + 2323.40 + (0.25 * self.taxable_income - 35472)
+            self.payee = 1229.80 + 1733.55 + 2323.40 + (0.25 * (self.taxable_income - 35472))
         else:
-            self.payee = 1229.80 + 1733.55 + 2323.40 + 2904.25 + (0.3 * self.taxable_income - 47059)
+            self.payee = 1229.80 + 1733.55 + 2323.40 + 2904.25 + (0.3 * (self.taxable_income - 47059))
 
     def personal_relief(self):
         self.personal_relief = 1408.00

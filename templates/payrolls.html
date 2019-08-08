@@ -9,95 +9,97 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Oline PayrollSystem</title>
+    <title>Online PayrollSystem</title>
 </head>
 <body>
 
 <div class="container-fluid">
-<!-- Button trigger modal for payroll-->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#generatePayroll">
-    Generate Payroll
-</button>
+    <!-- Button trigger modal for payroll-->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#generatePayroll">
+        Generate Payroll
+    </button>
 
 
-<!-- Modal for generating payroll-->
-<div class="modal fade" id="generatePayroll" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Generate Payroll</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="/generate_payroll/{{ employee.id }}" method="POST">
-                    <div class="form-group">
-                        <label for="formGroupExampleInput">Month</label>
-                        <input name="month" required type="text" class="form-control" id="formGroupExampleInput"
-                               placeholder="eg.JAN2019 ">
-                    </div>
-                    <div class="form-group">
-                        <label for="formGroupExampleInput">Overtime</label>
-                        <input name="overtime" value="0" required type="number" class="form-control" id="formGroupExampleInput"
-                               placeholder=" ">
-                    </div>
-                    <div class="form-group">
-                        <label for="formGroupExampleInput">Loan Deductions</label>
-                        <input name="loan" value="0" required type="number" class="form-control" id="formGroupExampleInput"
-                               placeholder=" ">
-                    </div>
-                    <div class="form-group">
-                        <label for="formGroupExampleInput">Salary Advance</label>
-                        <input name="salary_advance" value="0" required type="number" class="form-control" id="formGroupExampleInput"
-                               placeholder=" ">
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="form-control btn btn-primary">
-                    </div>
-                </form>
+    <!-- Modal for generating payroll-->
+    <div class="modal fade" id="generatePayroll" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Generate Payroll</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/generate_payroll/{{ employee.id }}" method="POST">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Month</label>
+                            <input name="month" required type="text" class="form-control" id="formGroupExampleInput"
+                                   placeholder="eg.JAN2019 ">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Overtime</label>
+                            <input name="overtime" value="0" required type="number" class="form-control"
+                                   id="formGroupExampleInput"
+                                   placeholder=" ">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Loan Deductions</label>
+                            <input name="loan" value="0" required type="number" class="form-control"
+                                   id="formGroupExampleInput"
+                                   placeholder=" ">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Salary Advance</label>
+                            <input name="salary_advance" value="0" required type="number" class="form-control"
+                                   id="formGroupExampleInput"
+                                   placeholder=" ">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="form-control btn btn-primary">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Payroll Month</th>
-        <th scope="col"> Gross Salary</th>
-        <th scope="col">NSSF Deductions</th>
-        <th scope="col">NHIF Deductions</th>
-        <th scope="col">Taxable Income</th>
-        <th scope="col">PAYE</th>
-        <th scope="col">Personal Relief</th>
-        <th scope="col">Tax off Relief</th>
-        <th scope="col">Net Salary</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for each in employees %}
+    <table class="table">
+        <thead class="thead-dark">
         <tr>
-            <th scope="row">{{ each.id }}</th>
-            <td>{{ each.payroll_month }}</td>
-            <td>{{ each.overtime }}</td>
-            <td>{{ each.advanced_pay }}</td>
-            <td>{{ each.loan_deductions }}</td>
-            <td>{{ each.nssf_deductions }}</td>
-            <td>{{ each.nhif_deductions }}</td>
-            <td>{{ each.taxable_income }}</td>
-            <td>{{ each.PAYE }}</td>
-            <td>{{ each.personal_relief }}</td>
-            <td>{{ each.tax_off_relief}}</td>
-            <td>{{ each.net_salary}}</td>
-            <td>
-                <button><a href="/employees/{{ each.id }}">View Payrolls</a></button>
-            </td>
+            <th scope="col">Payroll Month</th>
+            <th scope="col"> Gross Salary</th>
+            <th scope="col">NSSF Deductions</th>
+            <th scope="col">NHIF Deductions</th>
+            <th scope="col">Taxable Income</th>
+            <th scope="col">PAYE</th>
+            <th scope="col">Personal Relief</th>
+            <th scope="col">Tax off Relief</th>
+            <th scope="col">Net Salary</th>
+            <th scope="col">Take Home Pay</th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        {% for payslip in payslips %}
+            <tr>
+                <th scope="row">{{ payslip.id }}</th>
+                <td>{{ payslip.payroll_month }}</td>
+                <td>{{ payslip.overtime }}</td>
+                <td>{{ payslip.advanced_pay }}</td>
+                <td>{{ payslip.loan_deductions }}</td>
+                <td>{{ payslip.nssf_deductions }}</td>
+                <td>{{ payslip.nhif_deductions }}</td>
+                <td>{{ payslip.taxable_income }}</td>
+                <td>{{ payslip.PAYE }}</td>
+                <td>{{ payslip.personal_relief }}</td>
+                <td>{{ payslip.tax_off_relief }}</td>
+                <td>{{ payslip.net_salary }}</td>
+                <td>{{ payslip.take_home_pay }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

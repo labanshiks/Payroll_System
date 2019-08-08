@@ -1,5 +1,7 @@
 from main import db
 
+from models.Payrolls import PayrollsModel
+
 
 class EmployeesModel(db.Model):
     __tablename__ = 'employees'
@@ -12,6 +14,7 @@ class EmployeesModel(db.Model):
     basic_salary = db.Column(db.Float)
     benefits = db.Column(db.Float)
     department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
+    payrolls = db.relationship(PayrollsModel, backref='employee')
 
     # create
     def insert_to_db(self):
@@ -21,6 +24,10 @@ class EmployeesModel(db.Model):
     @classmethod
     def fetch_by_id(cls, id):
         return cls.query.filter_by(id=id).first()
+
+    @classmethod
+    def fetch_all(cls):
+        return cls.query.all()
 
     # Update
     @classmethod
