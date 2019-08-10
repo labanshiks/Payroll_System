@@ -81,21 +81,21 @@
         </tr>
         </thead>
         <tbody>
-        {% for payslip in payslips %}
+        {% for each in payslips %}
             <tr>
-                <th scope="row">{{ payslip.id }}</th>
-                <td>{{ payslip.payroll_month }}</td>
-                <td>{{ payslip.overtime }}</td>
-                <td>{{ payslip.advanced_pay }}</td>
-                <td>{{ payslip.loan_deductions }}</td>
-                <td>{{ payslip.nssf_deductions }}</td>
-                <td>{{ payslip.nhif_deductions }}</td>
-                <td>{{ payslip.taxable_income }}</td>
-                <td>{{ payslip.PAYE }}</td>
-                <td>{{ payslip.personal_relief }}</td>
-                <td>{{ payslip.tax_off_relief }}</td>
-                <td>{{ payslip.net_salary }}</td>
-                <td>{{ payslip.take_home_pay }}</td>
+                <th scope="row">{{ each.id }}</th>
+                <td>{{ each.payroll_month }}</td>
+                <td>{{ each.overtime }}</td>
+                <td>{{ each.advanced_pay }}</td>
+                <td>{{ each.loan_deductions }}</td>
+                <td>{{ each.nssf_deductions }}</td>
+                <td>{{ each.nhif_deductions }}</td>
+                <td>{{ each.taxable_income }}</td>
+                <td>{{ each.PAYE }}</td>
+                <td>{{ each.personal_relief }}</td>
+                <td>{{ each.tax_off_relief }}</td>
+                <td>{{ each.net_salary }}</td>
+                <td>{{ each.take_home_pay }}</td>
             </tr>
         {% endfor %}
         </tbody>

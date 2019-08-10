@@ -158,7 +158,7 @@ def generate_payrolls(emp_id):
                             PAYE=paye, personal_relief=personal_relief, tax_off_relief=tax_off_relief,
                             net_salary=net_salary, take_home_pay=take_home_pay)
     payslip.insert_to_db()
-    return redirect(url_for('home'))
+    return redirect(url_for('payrolls', emp_id=this_employee.id))
 # run flask
 # if __name__ == '__main__':
 #     app.run()
