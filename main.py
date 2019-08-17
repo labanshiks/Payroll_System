@@ -129,8 +129,10 @@ def delete_employee(id):
 @app.route('/payrolls/<int:emp_id>')
 def payrolls(emp_id):
     employee = EmployeesModel.fetch_by_id(emp_id)
-    payslips = PayrollsModel.fetch_by_employee(emp_id)
-    return render_template('payrolls.html', employee=employee, payslips=payslips)
+    print(employee.full_name)
+    print(employee.payrolls)
+    # payslips = PayrollsModel.fetch_by_employee(emp_id)
+    return render_template('payrolls.html', employee=employee)
 
 
 @app.route('/generate_payroll/<int:emp_id>', methods=['POST'])
@@ -156,7 +158,7 @@ def generate_payrolls(emp_id):
                             gross_salary=gross, nhif_deductions=nhif, nssf_deductions=nssf,
                             taxable_income=taxable_amount,
                             PAYE=paye, personal_relief=personal_relief, tax_off_relief=tax_off_relief,
-                            net_salary=net_salary, take_home_pay=take_home_pay)
+                            net_salary=net_salary, take_home_pay=take_home_pay, employee_id = this_employee.id)
     payslip.insert_to_db()
     return redirect(url_for('payrolls', emp_id=this_employee.id))
 # run flask
